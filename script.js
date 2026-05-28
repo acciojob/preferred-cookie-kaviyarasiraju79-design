@@ -1,5 +1,5 @@
 //your JS code here. If required.
-const form = document.getElementById("settings-form");
+const form = document.querySelector("form");
 const fontSizeInput = document.getElementById("fontsize");
 const fontColorInput = document.getElementById("fontcolor");
 
@@ -7,18 +7,18 @@ const fontColorInput = document.getElementById("fontcolor");
 function getCookie(name) {
   const cookies = document.cookie.split(";");
 
-  for (let cookie of cookies) {
-    cookie = cookie.trim();
+  for (let i = 0; i < cookies.length; i++) {
+    let cookie = cookies[i].trim();
 
     if (cookie.startsWith(name + "=")) {
       return cookie.substring(name.length + 1);
     }
   }
 
-  return null;
+  return "";
 }
 
-// Apply saved preferences on page load
+// Apply saved settings on page load
 window.onload = function () {
   const savedFontSize = getCookie("fontsize");
   const savedFontColor = getCookie("fontcolor");
@@ -42,16 +42,16 @@ window.onload = function () {
   }
 };
 
-// Save preferences
+// Save settings
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
   const fontSize = fontSizeInput.value + "px";
   const fontColor = fontColorInput.value;
 
-  // Save in cookies
-  document.cookie = `fontsize=${fontSize}; path=/`;
-  document.cookie = `fontcolor=${fontColor}; path=/`;
+  // Save cookies
+  document.cookie = "fontsize=" + fontSize + "; path=/";
+  document.cookie = "fontcolor=" + fontColor + "; path=/";
 
   // Apply styles immediately
   document.documentElement.style.setProperty(
